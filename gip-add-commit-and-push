@@ -1,2 +1,27 @@
-gip-add .
-gip-commit-and-push "$@"
+function help() {
+    echo '
+Usage: gip-add-commit-and-push <commit parameters...>
+
+Just combines gip-add with gip-commit-and-push. Adds current
+directory, i.e. "." - you do not get to specify a directory.
+'
+}
+declare -a params=()
+while [[ $1 ]]; do
+    if [[ $1 == "" || $1 == -h || $1 == --help ]]; then
+        help
+        exit 0
+    elif [[ $1 == --echo || $1 == -echo ]]; then
+        echo=1
+    else
+        params+=("$1")
+    fi
+    shift
+done
+if [[ $echo ]]; then
+    echo gip-add .
+    echo gip-commit-and-push "${params[@]}"
+else
+    gip-add .
+    gip-commit-and-push "${params[@]}"
+fi
