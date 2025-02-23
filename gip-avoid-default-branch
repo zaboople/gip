@@ -1,5 +1,25 @@
+function help() {
+    echo "
+    Usage: gip-avoid-default-branch <branchname>
+    Figures out the default branch and does its best to make
+    sure we are not using it. Mostly for gip's internal use.
+    "
+}
+while [[ $1 ]]; do
+    if [[ $1 == -h* || $1 == --help ]]; then
+        help
+        exit 0
+    elif [[ $1 == --echo || $1 == -echo ]]; then
+        echo "Error: --echo unsupported here."
+        help
+        exit 1
+    else
+        branch="$1"
+    fi
+    shift
+done
+
 default_branch=$(git remote show origin | fgrep '  HEAD branch: ' | gawk -F 'HEAD branch:' '{print $2}'  | trim)
-branch=$1
 if [[ "$default_branch" == "$branch" ]]; then
   echo "WARNING: You are trying to push/commit: $branch! Use --master to force that anyhow."
   exit 1
