@@ -70,6 +70,6 @@ else
         gip-fetch "$newb" || exit 1
         gip-fetch "$oldb" || exit 1
     fi
-        echo "# Don't forget to do git merge before pushing!"
+    echo "# Don't forget to do git merge before pushing!"
     git rebase --onto $newb $oldb
 fi
