@@ -1,8 +1,25 @@
 if [[ $1 == "" || $1 == -h* ]]; then
   echo 'Reverts file to its last commit.'
-  echo 'Usage: gip-undo <file1 [file2 [...fileN]]>'
+  echo 'Usage: gip-undo <file1 [file2 [...fileN]]> [--echo]'
+  exit 0
+fi
+
+declare -a params=()
+while [[ $1 ]]; do
+    if [[ $1 == --echo ]]; then
+        echo=1
+    else
+        params+=("$1")
+    fi
+    shift
+done
+if [[ $echo ]]; then
+    echo
+    echo git checkout -- "${params[@]}"
+    echo git clean -f -d "${params[@]}" || exit 1
+    echo git status
 else
-  git checkout -- "$@"
-  git clean -f -d "$@" || exit 1
-  git status
+    git checkout -- "$@"
+    git clean -f -d "$@" || exit 1
+    git status
 fi
