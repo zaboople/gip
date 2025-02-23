@@ -1,6 +1,7 @@
 function help() {
     echo "
         Usage: gip-fetch [-echo] <branch>
+        Tries its darnedest to fetch a remote repo so that you can properly merge/diff against it.
     ";
 }
 
@@ -25,7 +26,8 @@ fi
 
 
 if [[ $echo ]]; then
-    echo git fetch origin "$mybranch":"$mybranch"
+    echo "The branch -u is for upstream:"
+    echo git fetch origin "$mybranch":"$mybranch" && git branch -u "origin/$mybranch" "$mybranch"
 else
-    git fetch origin "$mybranch":"$mybranch"
+    git fetch origin "$mybranch":"$mybranch" &&  git branch -u "origin/$mybranch" "$mybranch"
 fi

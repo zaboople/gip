@@ -1,5 +1,8 @@
 if [[ $1 == -h* ]]; then
-  echo 'Usage: gip-branches [-echo]'
+  echo "
+    Usage: gip-branch-list [-echo]
+    Just runs "git branch" command without arguments.
+"
 elif [[ $1 == -echo ]]; then
   shift
   echo "git branch"
