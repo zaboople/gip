@@ -7,7 +7,7 @@ function usage() {
   "
 }
 function getStatuses() {
-    egrep '^(\+\+\+|\-\-\-) ' \
+    egrep '^(\+\+\+|---) ' \
      | perl -pe 's/^(\+\+\+|\-\-\-) (a|b)\///' \
      | gawk 'BEGIN {p1=""; count=0;}{
       if (p1=="")
