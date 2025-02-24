@@ -1,0 +1,12 @@
+if [[ $1 == -h* || $1 == --help* ]]; then
+    echo "
+Usage: gip-branch-echo [--echo]
+Gets the name of the current branch, simple as that.
+Invoke with --echo to find out how this is done.
+"
+elif [[ $1 == -e* || $1 == --echo* ]]; then
+    echo "git rev-parse --abbrev-ref HEAD"
+else
+    git rev-parse --abbrev-ref HEAD
+fi
+
